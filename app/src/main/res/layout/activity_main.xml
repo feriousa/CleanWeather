@@ -1,19 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="@color/main_bg"
         android:layout_height="match_parent"
         tools:context=".ui.activity.MainActivity">
 
+
+    <!--location-->
     <TextView
+            android:id="@+id/currentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:textAppearance="@style/TextAppearance.Montserrat.Bold"
+            tools:text="Tehran, Iran"
+            android:textSize="24sp"
+            android:textColor="@color/primary_text"
+            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintTop_toTopOf="@+id/topGuideline"/>
+
+    <!--date-->
+    <TextView
+            android:id="@+id/currentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Montserrat"
+            tools:text="Sun, 12 May 2019"
+            android:textSize="14sp"
+            android:textColor="@color/primary_text"
+            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/currentLocation"
+            android:layout_marginTop="8dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/leftGuideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rightGuideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topGuideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/currentWeatherIcon"
+            android:layout_width="@dimen/current_weather_icon_size"
+            android:layout_height="@dimen/current_weather_icon_size"
+            tools:src="@drawable/ic_storm"
+            app:layout_constraintEnd_toStartOf="@+id/currentWeatherTemp"
+            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherTemp"
+            app:layout_constraintTop_toTopOf="@+id/currentWeatherTemp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
+
+    <TextView
+            android:id="@+id/currentWeatherTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Montserrat.Bold"
+            android:textSize="40sp"
+            tools:text="40"
+            app:layout_constraintTop_toBottomOf="@+id/currentDate"
+            app:layout_constraintEnd_toStartOf="@+id/tempSign"/>
+
+    <TextView
+            android:id="@+id/tempSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:textSize="16sp"
+            tools:text="°c"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
+            app:layout_constraintTop_toTopOf="@+id/currentWeatherTemp"
+            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherTemp"/>
+
+    <TextView
+            android:id="@+id/currentWeatherDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:gravity="center"
+            android:textSize="14sp"
+            tools:text="sunny with periodic clouds"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
+            app:layout_constraintStart_toStartOf="@+id/currentWeatherIcon"
+            app:layout_constraintTop_toBottomOf="@+id/currentWeatherTemp"
+            android:layout_marginTop="8dp"/>
+
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:cardElevation="8dp"
+            app:optRoundCardCornerRadius="25dp"
+            app:optRoundCardLeftBottomCorner="false"
+            app:optRoundCardRightBottomCorner="false"
+            app:optRoundCardBottomEdges="false"
+            app:optRoundCardBackgroundColor="@android:color/white"
+
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/optRoundCardView">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/sunriseIcon"
+                    android:layout_width="@dimen/weather_detail_icon_size"
+                    android:layout_height="@dimen/weather_detail_icon_size"
+                    app:srcCompat="@drawable/ic_sunrise"
+                    app:layout_constraintEnd_toEndOf="@+id/sunriseTime"
+                    app:layout_constraintStart_toStartOf="@+id/sunriseTime"
+                    app:layout_constraintTop_toTopOf="@+id/windIcon"/>
+
+            <TextView
+                    android:id="@+id/sunriseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sunrise"
+                    android:textSize="10sp"
+                    android:textColor="@color/primary_text"
+                    app:layout_constraintStart_toStartOf="@+id/sunriseTime"
+                    app:layout_constraintEnd_toEndOf="@+id/sunriseTime"
+                    app:layout_constraintTop_toBottomOf="@+id/sunriseIcon"/>
+
+            <TextView
+                    android:id="@+id/sunriseTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.Montserrat.Bold"
+                    tools:text="20:04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/windSpeed"
+                    app:layout_constraintTop_toBottomOf="@+id/sunriseText"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"/>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/windIcon"
+                    android:layout_width="@dimen/weather_detail_icon_size"
+                    android:layout_height="@dimen/weather_detail_icon_size"
+                    app:srcCompat="@drawable/ic_wind"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/windSpeed"
+                    app:layout_constraintStart_toStartOf="@+id/windSpeed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.56"/>
+
+            <TextView
+                    android:id="@+id/windText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wind"
+                    android:textSize="10sp"
+                    android:textColor="@color/primary_text"
+                    app:layout_constraintEnd_toEndOf="@+id/windSpeed"
+                    app:layout_constraintStart_toStartOf="@+id/windSpeed"
+                    app:layout_constraintTop_toBottomOf="@+id/windIcon"/>
+
+            <TextView
+                    android:id="@+id/windSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.Montserrat.Bold"
+                    tools:text="16 kmh N"
+                    app:layout_constraintStart_toEndOf="@+id/sunriseTime"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/sunsetTime"
+                    app:layout_constraintTop_toBottomOf="@+id/windText"
+                    android:layout_marginTop="8dp"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/sunsetIcon"
+                    android:layout_width="@dimen/weather_detail_icon_size"
+                    android:layout_height="@dimen/weather_detail_icon_size"
+                    app:srcCompat="@drawable/ic_sunset"
+                    app:layout_constraintEnd_toEndOf="@+id/sunsetTime"
+                    app:layout_constraintStart_toStartOf="@+id/sunsetTime"
+                    app:layout_constraintTop_toTopOf="@+id/windIcon"/>
+
+            <TextView
+                    android:id="@+id/sunsetText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sunset"
+                    android:textSize="10sp"
+                    android:textColor="@color/primary_text"
+                    app:layout_constraintEnd_toEndOf="@+id/sunsetTime"
+                    app:layout_constraintStart_toStartOf="@+id/sunsetTime"
+                    app:layout_constraintTop_toBottomOf="@+id/sunsetIcon"/>
+
+            <TextView
+                    android:id="@+id/sunsetTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.Montserrat.Bold"
+                    tools:text="06:54"
+                    app:layout_constraintStart_toEndOf="@+id/windSpeed"
+                    app:layout_constraintTop_toBottomOf="@+id/sunsetText"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="12dp"
+            android:src="@drawable/ic_arrow_up"
+            app:fabCustomSize="@dimen/detail_fab_size"
+            app:maxImageSize="@dimen/detail_fab_image_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:id="@+id/btnShowDetail"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
+            app:layout_constraintBottom_toTopOf="@+id/optRoundCardView"
+            app:layout_constraintTop_toTopOf="@+id/optRoundCardView"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
