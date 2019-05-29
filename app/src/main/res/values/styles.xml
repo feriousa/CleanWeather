@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextAppearance.Montserrat" parent="android:TextAppearance">
+        <item name="fontPath">@string/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Montserrat.Bold" parent="android:TextAppearance">
+        <item name="fontPath">@string/montserrat_bold</item>
+    </style>
+
 </resources>
