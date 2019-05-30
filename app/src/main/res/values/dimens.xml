@@ -6,7 +6,7 @@
     <dimen name="textSize_large">20sp</dimen>
 
     <!--home-->
-    <dimen name="current_weather_icon_size">40dp</dimen>
+    <dimen name="current_weather_icon_size">50dp</dimen>
     <dimen name="weather_detail_icon_size">30dp</dimen>
     <dimen name="detail_fab_size">35dp</dimen>
     <dimen name="detail_fab_image_size">15dp</dimen>
