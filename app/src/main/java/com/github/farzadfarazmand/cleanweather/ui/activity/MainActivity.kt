@@ -13,7 +13,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         val binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
-        val weatherData = WeatherData("Tehran, Iran", "Thu 30 May 2019", "46",R.drawable.ic_sun,"sunny","06:34","20:25","5 mph N")
+        val weatherData = WeatherData("Tehran, Iran", "46", "48°c / 33°c", R.drawable.ic_sun)
         binding.weatherData = weatherData
         binding.executePendingBindings()
     }
