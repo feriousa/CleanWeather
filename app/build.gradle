@@ -51,6 +51,9 @@ dependencies {
     //custom font
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'io.github.inflationx:viewpump:1.0.0'
+    //Retrofit
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 
 
 }

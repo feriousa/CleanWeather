@@ -1,6 +1,6 @@
 package com.github.farzadfarazmand.cleanweather.model
 
-class WeatherData(
+class CurrentWeatherData(
     var cityName: String = "",
     var temp: String = "",
     var minMaxTemp: String = "",

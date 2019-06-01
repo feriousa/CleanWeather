@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.github.farzadfarazmand.cleanweather.R
 import com.github.farzadfarazmand.cleanweather.databinding.ActivityMainBinding
-import com.github.farzadfarazmand.cleanweather.model.WeatherData
+import com.github.farzadfarazmand.cleanweather.model.CurrentWeatherData
 
 class MainActivity : BaseActivity() {
 
@@ -13,8 +13,8 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         val binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
-        val weatherData = WeatherData("Tehran, Iran", "46", "48°c / 33°c", R.drawable.ic_sun)
-        binding.weatherData = weatherData
+        val weatherData = CurrentWeatherData("Tehran, Iran", "46", "48°c / 33°c", R.drawable.ic_sunny)
+        binding.currentWeatherData = weatherData
         binding.executePendingBindings()
     }
 }
