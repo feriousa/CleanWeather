@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+				name="weather"
+				type="com.github.farzadfarazmand.cleanweather.model.response.WeatherForecastResponse.ForecastDay"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="8dp"
+			android:paddingBottom="8dp">
+
+
+		<TextView
+				android:id="@+id/dayName"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:textSize="16sp"
+				android:textColor="@android:color/white"
+				android:text="@{weather.getDayNameFromEpoch()}"
+				tools:text="Tomorrow"
+				android:gravity="left"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/dayStatus"
+				android:layout_marginRight="24dp"
+				android:layout_marginEnd="24dp"/>
+
+		<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/dayStatus"
+				android:layout_width="@dimen/forecast_list_image_size"
+				android:layout_height="@dimen/forecast_list_image_size"
+				tools:src="@drawable/ic_sunny"
+				app:srcCompat="@{weather.statusIcon}"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/dayMaxTemp"
+				android:layout_marginRight="24dp"
+				android:layout_marginEnd="24dp"/>
+
+
+		<TextView
+				android:id="@+id/dayMaxTemp"
+				android:layout_width="60dp"
+				android:layout_height="wrap_content"
+				android:text="@{weather.maxTemp}"
+				android:textSize="14sp"
+				android:gravity="right|end"
+				android:textColor="@android:color/white"
+				tools:text="22°"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/dayMinTemp"/>
+
+		<TextView
+				android:id="@+id/dayMinTemp"
+				android:layout_width="60dp"
+				android:layout_height="wrap_content"
+				android:textSize="14sp"
+				android:text="@{weather.minTemp}"
+				android:gravity="left"
+				android:textColor="#80ffffff"
+				tools:text="/16°"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				/>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

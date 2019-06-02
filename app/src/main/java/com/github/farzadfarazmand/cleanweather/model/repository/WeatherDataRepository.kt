@@ -15,7 +15,7 @@ class WeatherDataRepository {
             }
             val forecastResponse = Gson().fromJson<WeatherForecastResponse.ForecastResponse>(forecastResponseJson, WeatherForecastResponse.ForecastResponse::class.java)
             callback.onDataReady(forecastResponse)
-        }, 3000)
+        }, 6000)
     }
 
     interface WeatherDataCallback {

@@ -3,4 +3,6 @@
     <string name="sunrise">Sunrise</string>
     <string name="wind">Wind</string>
     <string name="sunset">Sunset</string>
+
+    <string name="weather_location" formatted="false">%s, %s</string>
 </resources>

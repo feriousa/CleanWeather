@@ -1,6 +1,9 @@
 package com.github.farzadfarazmand.cleanweather.model.response
 
+import com.github.farzadfarazmand.cleanweather.util.Days
+import com.github.farzadfarazmand.cleanweather.util.WeatherConditionMap
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 object WeatherForecastResponse {
 
@@ -55,10 +58,26 @@ object WeatherForecastResponse {
     )
 
     data class ForecastDay(
-        var date: String = "",
-        var day: DayWeather,
-        var astro: Astro
-    )
+        val date: String = "",
+        @SerializedName("date_epoch")
+        val dateEpoch: Long = 0,
+        val day: DayWeather,
+        val astro: Astro
+    ) {
+        fun getDayNameFromEpoch(): String {
+            try {
+                val c = Calendar.getInstance()
+                c.timeInMillis = dateEpoch * 1000
+                val dayNum = c.get(Calendar.DAY_OF_WEEK)
+                return Days.values()[dayNum].name
+            } catch (e: Exception) {
+                return Days.FRIDAY.name
+            }
+        }
+        fun getStatusIcon() : Int= WeatherConditionMap.getInstance().getIconForCondition(day.condition.code)
+        fun getMaxTemp(): String = day.maxTemp.toString() + "°"
+        fun getMinTemp(): String = " / " + day.minTemp.toString() + "°"
+    }
 
     data class Forecast(
         @SerializedName("forecastday")
@@ -67,7 +86,7 @@ object WeatherForecastResponse {
 
     data class ForecastResponse(
         val location: WeatherLocation,
-        val current:CurrentWeather,
+        val current: CurrentWeather,
         val forecast: Forecast
     )
 
