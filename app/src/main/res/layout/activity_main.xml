@@ -37,10 +37,9 @@
                 android:layout_height="wrap_content"
                 tools:text="Tehran"
                 android:textSize="16sp"
-                android:shadowColor="#30000000"
+                android:textColor="@android:color/white"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:textColor="@color/primary_text"
                 app:layout_constraintStart_toEndOf="@+id/locationPinIcon"
                 android:paddingRight="10dp"
                 app:layout_constraintTop_toTopOf="@+id/locationPinIcon"
@@ -79,20 +78,20 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/topGuideline"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.1"/>
+                app:layout_constraintGuide_percent="0.05"/>
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/currentWeatherIcon"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 tools:src="@drawable/ic_cloudy"
-                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="@+id/topGuideline"
                 app:layout_constraintStart_toEndOf="@+id/tempSign"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
                 app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"/>
 
         <TextView
                 android:id="@+id/currentWeatherTemp"
@@ -101,33 +100,32 @@
                 android:textAppearance="@style/TextAppearance.Montserrat.Bold"
                 android:textSize="60sp"
                 tools:text="40"
+                android:textColor="@android:color/white"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintBottom_toTopOf="@+id/currentWeatherMaxMinTemp"
-                app:layout_constraintTop_toTopOf="@+id/currentWeatherIcon"/>
+                app:layout_constraintTop_toTopOf="@+id/currentWeatherIcon"
+                android:layout_marginTop="32dp"/>
 
 
         <TextView
                 android:id="@+id/currentWeatherMaxMinTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 tools:text="40°c/23°c"
+                android:textColor="#80ffffff"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/currentWeatherTemp"
-                app:layout_constraintBottom_toTopOf="@+id/locationPinIcon"/>
+                app:layout_constraintTop_toBottomOf="@+id/currentWeatherTemp"/>
 
 
         <TextView
                 android:id="@+id/tempSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
                 android:textSize="40sp"
+                android:textColor="@android:color/white"
                 android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
-                android:text="°c"
+                android:text="°"
                 app:layout_constraintStart_toEndOf="@+id/currentWeatherTemp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="@+id/currentWeatherTemp"
                 app:layout_constraintBottom_toBottomOf="@+id/currentWeatherTemp"/>
 
@@ -139,12 +137,146 @@
                 style="@style/AVLoadingIndicatorView.Large"
                 android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
                 app:indicatorName="BallGridBeatIndicator"
-                app:indicatorColor="@color/colorAccent"
+                app:indicatorColor="#aaffffff"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <View
+                android:id="@+id/detailBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_weather_detail"
+                app:layout_constraintTop_toBottomOf="@+id/currentWeatherIcon"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/forecastList"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/sunset"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/humidityIcon"
+                android:layout_width="@dimen/weather_detail_icon_size"
+                android:layout_height="@dimen/weather_detail_icon_size"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/ic_humidity"
+                app:layout_constraintTop_toTopOf="@+id/detailBackground"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/humidity"
+                app:layout_constraintStart_toStartOf="@+id/humidity"/>
+
+        <TextView
+                style="@style/WeatherDetailIconName"
+                android:id="@+id/humidityName"
+                android:text="@string/humidity"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toBottomOf="@+id/humidityIcon"
+                app:layout_constraintEnd_toEndOf="@+id/humidityIcon"
+                app:layout_constraintStart_toStartOf="@+id/humidityIcon"/>
+
+        <TextView
+                android:id="@+id/humidity"
+                style="@style/WeatherDetailItems"
+                tools:text="50 %"
+                app:layout_constraintTop_toBottomOf="@+id/humidityName"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/wind"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/windIcon"
+                android:layout_width="@dimen/weather_detail_icon_size"
+                android:layout_height="@dimen/weather_detail_icon_size"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/ic_windsock"
+                app:layout_constraintTop_toTopOf="@+id/humidityIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/humidityIcon"
+                app:layout_constraintEnd_toEndOf="@+id/wind"
+                app:layout_constraintStart_toStartOf="@+id/wind"/>
+
+        <TextView
+                style="@style/WeatherDetailIconName"
+                android:id="@+id/windName"
+                android:text="@string/wind"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toBottomOf="@+id/windIcon"
+                app:layout_constraintEnd_toEndOf="@+id/windIcon"
+                app:layout_constraintStart_toStartOf="@+id/windIcon"/>
+
+        <TextView
+                android:id="@+id/wind"
+                style="@style/WeatherDetailItems"
+                tools:text="9 kph SSW"
+                app:layout_constraintTop_toBottomOf="@+id/windName"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toEndOf="@+id/humidity"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/sunrise"/>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sunriseIcon"
+                android:layout_width="@dimen/weather_detail_icon_size"
+                android:layout_height="@dimen/weather_detail_icon_size"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/ic_sunrise"
+                app:layout_constraintTop_toTopOf="@+id/windIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/windIcon"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintEnd_toEndOf="@+id/sunrise"
+                app:layout_constraintStart_toStartOf="@+id/sunrise"/>
+
+        <TextView
+                style="@style/WeatherDetailIconName"
+                android:id="@+id/sunriseName"
+                android:text="@string/sunrise"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toBottomOf="@+id/sunriseIcon"
+                app:layout_constraintEnd_toEndOf="@+id/sunriseIcon"
+                app:layout_constraintStart_toStartOf="@+id/sunriseIcon"/>
+
+        <TextView
+                android:id="@+id/sunrise"
+                style="@style/WeatherDetailItems"
+                tools:text="05:51 AM"
+                app:layout_constraintTop_toBottomOf="@+id/sunriseName"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toEndOf="@+id/wind"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/sunset"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sunsetIcon"
+                android:layout_width="@dimen/weather_detail_icon_size"
+                android:layout_height="@dimen/weather_detail_icon_size"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/ic_sunset"
+                app:layout_constraintTop_toTopOf="@+id/sunriseIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/sunriseIcon"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintEnd_toEndOf="@+id/sunset"
+                app:layout_constraintStart_toStartOf="@+id/sunset"/>
+
+        <TextView
+                style="@style/WeatherDetailIconName"
+                android:id="@+id/sunsetName"
+                android:text="@string/sunset"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="@+id/sunsetIcon"
+                app:layout_constraintStart_toStartOf="@+id/sunsetIcon"
+                app:layout_constraintTop_toBottomOf="@+id/sunsetIcon"/>
+
+        <TextView
+                android:id="@+id/sunset"
+                style="@style/WeatherDetailItems"
+                tools:text="08:51 PM"
+                app:layout_constraintTop_toBottomOf="@+id/sunsetName"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toEndOf="@+id/sunrise"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/rightGuideline"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/forecastList"
@@ -153,11 +285,11 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:scrollbars="none"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currentWeatherIcon"
-                android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
-                android:layout_marginBottom="32dp"/>
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/humidity"
+                android:layout_marginTop="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

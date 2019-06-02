@@ -5,4 +5,6 @@
     <string name="sunset">Sunset</string>
 
     <string name="weather_location" formatted="false">%s, %s</string>
+    <string name="weather_wind" formatted="false">%s kph %s</string>
+	<string name="humidity">Humidity</string>
 </resources>

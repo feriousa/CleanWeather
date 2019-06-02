@@ -1,5 +1,6 @@
 package com.github.farzadfarazmand.cleanweather.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,8 +14,9 @@ import com.github.farzadfarazmand.cleanweather.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var forecastListAdapter : ForecastRecyclerViewAdapter
+    private lateinit var forecastListAdapter: ForecastRecyclerViewAdapter
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,7 +43,17 @@ class MainActivity : BaseActivity() {
                             WeatherConditionMap.getInstance().getIconForCondition(it.current.condition.code)
                         )
                         currentWeatherTemp.text = (it.current.temp.toInt()).toString()
-                        currentWeatherMaxMinTemp.text = (it.current.humidity).toString()
+                        currentWeatherMaxMinTemp.text =
+                            it.forecast.forecastDaysArray[0].getMaxTemp() +  it.forecast.forecastDaysArray[0].getMinTemp()
+
+                        humidity.text = (it.current.humidity).toString() + " %"
+                        wind.text = getString(
+                            R.string.weather_wind,
+                            (it.current.windSpeed.toInt()).toString(),
+                            (it.current.windDirection)
+                        )
+                        sunrise.text = it.forecast.forecastDaysArray[0].astro.sunrise
+                        sunset.text = it.forecast.forecastDaysArray[0].astro.sunset
 
                         forecastListAdapter.addItems(it.forecast.forecastDaysArray)
                     }
