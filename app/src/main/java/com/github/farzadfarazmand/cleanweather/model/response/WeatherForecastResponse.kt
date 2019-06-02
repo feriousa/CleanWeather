@@ -65,16 +65,13 @@ object WeatherForecastResponse {
         val astro: Astro
     ) {
         fun getDayNameFromEpoch(): String {
-            try {
-                val c = Calendar.getInstance()
-                c.timeInMillis = dateEpoch * 1000
-                val dayNum = c.get(Calendar.DAY_OF_WEEK)
-                return Days.values()[dayNum].name
-            } catch (e: Exception) {
-                return Days.FRIDAY.name
-            }
+            val c = Calendar.getInstance()
+            c.timeInMillis = dateEpoch * 1000
+            val dayNum = c.get(Calendar.DAY_OF_WEEK)
+            return Days.values()[dayNum - 1].name
         }
-        fun getStatusIcon() : Int= WeatherConditionMap.getInstance().getIconForCondition(day.condition.code)
+
+        fun getStatusIcon(): Int = WeatherConditionMap.getInstance().getIconForCondition(day.condition.code)
         fun getMaxTemp(): String = day.maxTemp.toString() + "°"
         fun getMinTemp(): String = " / " + day.minTemp.toString() + "°"
     }
