@@ -18,7 +18,7 @@ public class WeatherConditionMap {
         return instance;
     }
 
-    private static void init() {
+    private void init() {
         conditions.append(1000, R.drawable.ic_sunny);
         conditions.append(1003, R.drawable.ic_cloudy_day);
         conditions.append(1006, R.drawable.ic_cloudy);
@@ -68,6 +68,10 @@ public class WeatherConditionMap {
         conditions.append(1279, R.drawable.ic_snowy);
         conditions.append(1282, R.drawable.ic_snowy);
 
+    }
+
+    public int getIconForCondition(int conditionCode) {
+        return conditions.get(conditionCode, -1);
     }
 
 }

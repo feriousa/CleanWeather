@@ -6,8 +6,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.farzadfarazmand.cleanweather.R
 import com.github.farzadfarazmand.cleanweather.databinding.ActivityMainBinding
-import com.github.farzadfarazmand.cleanweather.model.CurrentWeatherData
-import com.github.farzadfarazmand.cleanweather.viewmodel.MainActivityViewModel
+import com.github.farzadfarazmand.cleanweather.model.response.WeatherForecastResponse
+import com.github.farzadfarazmand.cleanweather.util.WeatherConditionMap
+import com.github.farzadfarazmand.cleanweather.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity() {
 
@@ -16,20 +17,19 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         val binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
-//        val weatherData = CurrentWeatherData("Tehran, Iran", "46", "48°c / 33°c", R.drawable.ic_sunny)
-        val viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         binding.executePendingBindings()
         viewModel.getWeatherData()
 
-        viewModel.currentWeather.observe(this,
-            Observer<CurrentWeatherData> {
+        viewModel.weatherData.observe(this,
+            Observer<WeatherForecastResponse.ForecastResponse> {
                 it?.let {
                     binding.apply {
-                        currentLocation.text = it.cityName
-                        currentWeatherIcon.setImageResource(it.status)
-                        currentWeatherTemp.text = it.temp
-                        currentWeatherMaxMinTemp.text = it.minMaxTemp
+                        currentLocation.text = it.location.name + ", " + it.location.country
+                        currentWeatherIcon.setImageResource(WeatherConditionMap.getInstance().getIconForCondition(it.current.condition.code))
+                        currentWeatherTemp.text = (it.current.temp.toInt()).toString()
+                        currentWeatherMaxMinTemp.text = (it.current.humidity).toString()
                     }
                 }
             })

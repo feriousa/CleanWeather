@@ -1,18 +1,24 @@
 package com.github.farzadfarazmand.cleanweather.model.repository
 
+import android.content.Context
 import android.os.Handler
-import com.github.farzadfarazmand.cleanweather.R
-import com.github.farzadfarazmand.cleanweather.model.CurrentWeatherData
+import com.github.farzadfarazmand.cleanweather.model.response.WeatherForecastResponse
+import com.google.gson.Gson
+
 
 class WeatherDataRepository {
 
-    fun getCurrentWeather(callback: WeatherDataCallback) {
+    fun getWeatherData(context: Context, callback: WeatherDataCallback) {
         Handler().postDelayed({
-            callback.onDataReady(CurrentWeatherData("Tehran, Iran", "46", "48°c / 33°c", R.drawable.ic_sunny))
+            val forecastResponseJson = context.assets.open("sample_response.json").bufferedReader().use{
+                it.readText()
+            }
+            val forecastResponse = Gson().fromJson<WeatherForecastResponse.ForecastResponse>(forecastResponseJson, WeatherForecastResponse.ForecastResponse::class.java)
+            callback.onDataReady(forecastResponse)
         }, 3000)
     }
 
     interface WeatherDataCallback {
-        fun onDataReady(weatherData: CurrentWeatherData)
+        fun onDataReady(weatherData: WeatherForecastResponse.ForecastResponse)
     }
 }
