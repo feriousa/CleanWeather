@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">CleanWeather</string>
     <string name="sunrise">Sunrise</string>
     <string name="wind">Wind</string>
     <string name="sunset">Sunset</string>

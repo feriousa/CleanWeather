@@ -16,8 +16,13 @@ android {
     }
     buildTypes {
         release {
+            resValue "string", "app_name", "CleanWeather"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            resValue "string", "app_name", "CleanWeatherDebug"
         }
     }
     dataBinding {
@@ -28,7 +33,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //kotlin
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.0.2'
     //ui
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -51,6 +56,11 @@ dependencies {
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'io.github.inflationx:viewpump:1.0.0'
     //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    //retrofit logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     //loading
     implementation 'com.wang.avi:library:2.1.3'
