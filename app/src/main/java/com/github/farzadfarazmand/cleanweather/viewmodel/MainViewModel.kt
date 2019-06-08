@@ -7,9 +7,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.github.farzadfarazmand.cleanweather.model.repository.WeatherDataRepository
 import com.github.farzadfarazmand.cleanweather.model.response.WeatherForecastResponse
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,15 +24,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getWeatherData() {
         isLoading.set(true)
         compositeDisposable.add(
-            weatherDataRepository.getWeatherData()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<WeatherForecastResponse.ForecastResponse>() {
-                    override fun onComplete() {
-                        Log.d("MainViewModel", "emit data finished")
-                    }
-
-                    override fun onNext(t: WeatherForecastResponse.ForecastResponse) {
+            weatherDataRepository.getWeatherData(getApplication())
+                .subscribeWith(object : DisposableSingleObserver<WeatherForecastResponse.ForecastResponse>() {
+                    override fun onSuccess(t: WeatherForecastResponse.ForecastResponse) {
                         isLoading.set(false)
                         weatherData.value = t
                     }

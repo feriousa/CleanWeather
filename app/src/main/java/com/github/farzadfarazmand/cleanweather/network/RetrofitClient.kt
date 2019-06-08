@@ -2,6 +2,7 @@ package com.github.farzadfarazmand.cleanweather.network
 
 import com.github.farzadfarazmand.cleanweather.model.response.WeatherForecastResponse
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,7 +33,7 @@ object RetrofitClient {
             .build()
     }
 
-    fun getWeather(cityName: String): Observable<WeatherForecastResponse.ForecastResponse> {
+    fun getWeather(cityName: String): Single<WeatherForecastResponse.ForecastResponse> {
         return weatherApi.getWeather("0f6741ce6a0441c496852933190106", cityName, 7)
     }
 

@@ -1,6 +1,5 @@
 package com.github.farzadfarazmand.cleanweather.ui.activity
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
@@ -8,8 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.farzadfarazmand.cleanweather.R
 import com.github.farzadfarazmand.cleanweather.databinding.ActivityMainBinding
+import com.github.farzadfarazmand.cleanweather.helper.PreferencesHelper
 import com.github.farzadfarazmand.cleanweather.model.response.WeatherForecastResponse
-import com.github.farzadfarazmand.cleanweather.network.RetrofitClient
 import com.github.farzadfarazmand.cleanweather.ui.adapter.ForecastRecyclerViewAdapter
 import com.github.farzadfarazmand.cleanweather.util.WeatherConditionMap
 import com.github.farzadfarazmand.cleanweather.viewmodel.MainViewModel
@@ -43,7 +42,7 @@ class MainActivity : BaseActivity() {
                         )
                         currentWeatherTemp.text = (it.current.temp.toInt()).toString()
                         currentWeatherMaxMinTemp.text =
-                            it.forecast.forecastDaysArray[0].getMaxTemp() +  it.forecast.forecastDaysArray[0].getMinTemp()
+                            it.forecast.forecastDaysArray[0].getMaxTemp() + it.forecast.forecastDaysArray[0].getMinTemp()
 
                         humidity.text = (it.current.humidity).toString() + " %"
                         wind.text = getString(
@@ -55,14 +54,11 @@ class MainActivity : BaseActivity() {
                         sunset.text = it.forecast.forecastDaysArray[0].astro.sunset
 
                         forecastListAdapter.addItems(it.forecast.forecastDaysArray)
+
+                        Log.d("saved Data", PreferencesHelper.getCachedWeatherData(this@MainActivity))
                     }
                 }
             })
 
-        val classA = RetrofitClient
-        val classB = RetrofitClient
-
-        Log.d("Hash", "class A :" + classA.hashCode())
-        Log.d("Hash", "class B :" + classB.hashCode())
     }
 }
