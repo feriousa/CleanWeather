@@ -30,6 +30,7 @@ class ForecastRecyclerViewAdapter(private var items: ArrayList<WeatherForecastRe
     }
 
     fun addItems(newItems: ArrayList<WeatherForecastResponse.ForecastDay>) {
+        items.clear()
         items.addAll(newItems)
         notifyDataSetChanged()
     }
