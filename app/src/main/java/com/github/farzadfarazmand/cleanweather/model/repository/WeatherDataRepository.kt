@@ -25,7 +25,7 @@ class WeatherDataRepository {
     }
 
     private fun getWeatherDataFromApi(): Observable<WeatherForecastResponse.ForecastResponse> {
-        return RetrofitClient.getWeather("Behbahan")
+        return RetrofitClient.getWeather("Tehran")
     }
 
     private fun getWeatherDataFromCache(context: Context): Observable<WeatherForecastResponse.ForecastResponse> {
