@@ -33,7 +33,7 @@ object RetrofitClient {
             .build()
     }
 
-    fun getWeather(cityName: String): Single<WeatherForecastResponse.ForecastResponse> {
+    fun getWeather(cityName: String): Observable<WeatherForecastResponse.ForecastResponse> {
         return weatherApi.getWeather("0f6741ce6a0441c496852933190106", cityName, 7)
     }
 

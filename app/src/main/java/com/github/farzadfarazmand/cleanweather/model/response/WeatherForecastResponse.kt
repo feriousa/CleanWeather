@@ -35,7 +35,9 @@ object WeatherForecastResponse {
         val name: String = "",
         val country: String = "",
         @SerializedName("localtime")
-        val localTime: String = ""
+        val localTime: String = "",
+        @SerializedName("localtime_epoch")
+        val localTimeEpoch: Long = 0
     )
 
     data class DayWeather(

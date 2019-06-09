@@ -25,10 +25,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         isLoading.set(true)
         compositeDisposable.add(
             weatherDataRepository.getWeatherData(getApplication())
-                .subscribeWith(object : DisposableSingleObserver<WeatherForecastResponse.ForecastResponse>() {
-                    override fun onSuccess(t: WeatherForecastResponse.ForecastResponse) {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<WeatherForecastResponse.ForecastResponse>() {
+                    override fun onComplete() {
+                        Log.e("MainViewModel", "completed!")
+                    }
+
+
+                    override fun onNext(t: WeatherForecastResponse.ForecastResponse) {
                         isLoading.set(false)
                         weatherData.value = t
+                        Log.e("MainViewModel", "onNextCalled")
                     }
 
                     override fun onError(e: Throwable) {
